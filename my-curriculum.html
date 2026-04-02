@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Personal Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #FAF5EE;
+    --warm: #F2E8D9;
+    --sand: #E8D5B7;
+    --terracotta: #C4622D;
+    --terra-light: #E07A50;
+    --rust: #8B3A1A;
+    --forest: #2D4A3E;
+    --sage: #5A7A6A;
+    --gold: #C9952A;
+    --dark: #1A1410;
+    --mid: #4A3728;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--forest);
+    padding: 3rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(201,149,42,0.15);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(196,98,45,0.2);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  header h1 em {
+    color: var(--terra-light);
+    font-style: italic;
+  }
+  .header-sub {
+    font-size: 0.95rem;
+    color: rgba(250,245,238,0.7);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .badge {
+    background: rgba(250,245,238,0.12);
+    border: 1px solid rgba(250,245,238,0.2);
+    color: var(--cream);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-section {
+    background: var(--warm);
+    border-bottom: 1px solid var(--sand);
+    padding: 1.25rem 2rem;
+  }
+  .progress-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .progress-label span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--sand);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.6s ease;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .tab {
+    background: none;
+    border: 1.5px solid var(--sand);
+    color: var(--mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .tab.active {
+    background: var(--forest);
+    border-color: var(--forest);
+    color: var(--cream);
+  }
+
+  /* TRACK PANELS */
+  .track-panel { display: none; }
+  .track-panel.active { display: block; }
+
+  /* TRACK HEADER */
+  .track-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .track-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .track-icon.terracotta { background: rgba(196,98,45,0.12); }
+  .track-icon.forest { background: rgba(45,74,62,0.12); }
+  .track-icon.gold { background: rgba(201,149,42,0.12); }
+  .track-meta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 0.2rem;
+  }
+  .track-meta p {
+    font-size: 0.87rem;
+    color: var(--sage);
+    font-weight: 400;
+  }
+
+  /* WEEK CARD */
+  .week-card {
+    background: white;
+    border-radius: 18px;
+    border: 1.5px solid var(--sand);
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .week-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .week-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .week-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+  .week-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark);
+  }
+  .week-subtitle {
+    font-size: 0.78rem;
+    color: var(--sage);
+    margin-top: 0.1rem;
+  }
+  .week-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .week-check {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--sand);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .week-check.done {
+    background: var(--forest);
+    border-color: var(--forest);
+    color: white;
+  }
+  .week-check.done::after { content: '✓'; font-size: 0.75rem; font-weight: 700; }
+  .chevron {
+    font-size: 0.7rem;
+    color: var(--sage);
+    transition: transform 0.2s;
+  }
+  .week-card.open .chevron { transform: rotate(180deg); }
+
+  .week-body {
+    display: none;
+    padding: 0 1.4rem 1.4rem;
+    border-top: 1px solid var(--warm);
+  }
+  .week-card.open .week-body { display: block; }
+
+  /* ACTIVITIES */
+  .activities { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .activity {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: var(--cream);
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .activity:hover { border-color: var(--sand); }
+  .activity-icon {
+    font-size: 1.1rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+  .activity-text { flex: 1; }
+  .activity-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.2rem;
+  }
+  .activity-title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+  .activity-desc {
+    font-size: 0.78rem;
+    color: var(--sage);
+    margin-top: 0.2rem;
+    line-height: 1.5;
+  }
+
+  /* CHALLENGE BADGE */
+  .challenge-box {
+    margin-top: 1.2rem;
+    background: linear-gradient(135deg, var(--forest) 0%, #3D6B58 100%);
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .challenge-box .trophy { font-size: 1.5rem; }
+  .challenge-box-text { }
+  .challenge-box-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+  }
+  .challenge-box-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.4;
+  }
+
+  /* BOOK CALLOUT */
+  .book-callout {
+    background: rgba(201,149,42,0.08);
+    border: 1.5px solid rgba(201,149,42,0.25);
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .book-cover {
+    width: 54px;
+    height: 72px;
+    border-radius: 6px;
+    background: linear-gradient(145deg, #8B6914, #C9952A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .book-info-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .book-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+  .book-info-author {
+    font-size: 0.78rem;
+    color: var(--sage);
+    margin-top: 0.2rem;
+  }
+  .book-info-desc {
+    font-size: 0.8rem;
+    color: var(--mid);
+    margin-top: 0.5rem;
+    line-height: 1.55;
+  }
+
+  /* NOTES */
+  .note-area {
+    width: 100%;
+    min-height: 90px;
+    background: var(--warm);
+    border: 1.5px solid var(--sand);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--dark);
+    resize: vertical;
+    margin-top: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .note-area:focus { border-color: var(--terracotta); }
+  .note-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-top: 1rem;
+    display: block;
+  }
+
+  /* TRAVEL SECTION */
+  .travel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .travel-card {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: box-shadow 0.2s;
+  }
+  .travel-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+  .travel-card-emoji { font-size: 1.6rem; margin-bottom: 0.75rem; }
+  .travel-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .travel-card p {
+    font-size: 0.8rem;
+    color: var(--sage);
+    line-height: 1.55;
+  }
+  .travel-card .link-tag {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    letter-spacing: 0.05em;
+  }
+
+  /* ACHIEVEMENTS */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .achievement {
+    background: white;
+    border: 1.5px solid var(--sand);
+    border-radius: 16px;
+    padding: 1.1rem;
+    text-align: center;
+    transition: all 0.2s;
+    opacity: 0.45;
+    filter: grayscale(0.6);
+  }
+  .achievement.unlocked {
+    opacity: 1;
+    filter: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,149,42,0.12);
+  }
+  .achievement-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .achievement-name { font-weight: 700; font-size: 0.85rem; margin-bottom: 0.25rem; }
+  .achievement-desc { font-size: 0.75rem; color: var(--sage); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    header { padding: 2rem 1.25rem 1.5rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+    .tabs { gap: 0.35rem; }
+    .tab { font-size: 0.78rem; padding: 0.45rem 0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <p class="eyebrow">✦ Personal Growth Curriculum</p>
+    <h1>Learn With <em>Intention,</em><br>Grow With Purpose</h1>
+    <p class="header-sub">A 12-week self-directed curriculum built around communication, leadership, and self-discovery — your way.</p>
+    <div class="badges">
+      <span class="badge">📺 YouTube + Visual</span>
+      <span class="badge">📓 Note-Taking</span>
+      <span class="badge">✈️ Travel Learning</span>
+      <span class="badge">📚 Reading</span>
+      <span class="badge">🏆 Milestones</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-section">
+  <div class="progress-inner">
+    <div class="progress-label">
+      <span>Overall Progress</span>
+      <span id="progress-text">0 of 12 weeks complete</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+</div>
+
+<main>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('communication')">🗣 Communication</button>
+    <button class="tab" onclick="switchTab('reading')">📖 Book Club</button>
+    <button class="tab" onclick="switchTab('pm')">📋 Project Mgmt</button>
+    <button class="tab" onclick="switchTab('travel')">✈️ Travel Learning</button>
+    <button class="tab" onclick="switchTab('achievements')">🏆 Achievements</button>
+  </div>
+
+  <!-- COMMUNICATION TRACK -->
+  <div class="track-panel active" id="tab-communication">
+    <div class="track-header">
+      <div class="track-icon terracotta">🗣</div>
+      <div class="track-meta">
+        <h2>Becoming a Better Communicator</h2>
+        <p>4 weeks · YouTube + note-taking + real-world practice</p>
+      </div>
+    </div>
+
+    <!-- Week 1 -->
+    <div class="week-card" id="comm-w1">
+      <div class="week-header" onclick="toggleWeek('comm-w1')">
+        <div class="week-left">
+          <div class="week-num">W1</div>
+          <div>
+            <div class="week-title">The Foundation — How Communication Works</div>
+            <div class="week-subtitle">Body language, tone, and presence</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-comm-w1" onclick="toggleCheck(event, 'comm-w1')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">Celeste Headlee – "10 Ways to Have a Better Conversation" (TED)</div>
+              <div class="activity-desc">One of the most impactful 11 minutes on listening and conversation you'll find. Take notes on what surprises you.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">Julian Treasure – "How to Speak So People Want to Listen" (TED)</div>
+              <div class="activity-desc">Focus on his HAIL framework — Honesty, Authenticity, Integrity, Love.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Note-Taking Challenge</div>
+              <div class="activity-title">Create a "Communication Snapshot" page in your journal</div>
+              <div class="activity-desc">Write: What are your current communication strengths? What do you want to change? Be honest.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎯</div>
+            <div class="activity-text">
+              <div class="activity-label">Practice</div>
+              <div class="activity-title">Have one "intentional conversation" this week</div>
+              <div class="activity-desc">No phone. Full eye contact. Ask one meaningful follow-up question. Note how it felt afterward.</div>
+            </div>
+          </div>
+        </div>
+        <div class="challenge-box">
+          <div class="trophy">🏆</div>
+          <div class="challenge-box-text">
+            <div class="challenge-box-label">Week 1 Challenge</div>
+            <div class="challenge-box-title">Record yourself speaking for 2 minutes on any topic. Watch it back. Write 3 observations.</div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Jot your thoughts, reflections, or key takeaways here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Week 2 -->
+    <div class="week-card" id="comm-w2">
+      <div class="week-header" onclick="toggleWeek('comm-w2')">
+        <div class="week-left">
+          <div class="week-num">W2</div>
+          <div>
+            <div class="week-title">Assertive, Not Aggressive</div>
+            <div class="week-subtitle">Speaking with confidence and clarity</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-comm-w2" onclick="toggleCheck(event, 'comm-w2')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">Amy Cuddy – "Your Body Language May Shape Who You Are" (TED)</div>
+              <div class="activity-desc">Pay attention to what she says about presence vs. performance.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Channel</div>
+              <div class="activity-title">Vinh Giang – Communication & Voice Training videos</div>
+              <div class="activity-desc">Binge 2–3 of his short videos on vocal power and how to speak so people lean in.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Note-Taking Challenge</div>
+              <div class="activity-title">Write your "I need / I feel / I want" statements</div>
+              <div class="activity-desc">Practice assertive language. Write 5 scenarios where you'd normally stay quiet — then write what you'd confidently say instead.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎯</div>
+            <div class="activity-text">
+              <div class="activity-label">Practice</div>
+              <div class="activity-title">Speak up in one situation you'd normally let slide</div>
+              <div class="activity-desc">A restaurant order, a meeting, a text response — wherever feels true to where you are right now.</div>
+            </div>
+          </div>
+        </div>
+        <div class="challenge-box">
+          <div class="trophy">🏆</div>
+          <div class="challenge-box-text">
+            <div class="challenge-box-label">Week 2 Challenge</div>
+            <div class="challenge-box-title">Leave a voice memo or voice note to a friend saying something you mean. No text crutch.</div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Jot your thoughts, reflections, or key takeaways here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Week 3 -->
+    <div class="week-card" id="comm-w3">
+      <div class="week-header" onclick="toggleWeek('comm-w3')">
+        <div class="week-left">
+          <div class="week-num">W3</div>
+          <div>
+            <div class="week-title">Listening as a Superpower</div>
+            <div class="week-subtitle">Active listening, empathy, and reading the room</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-comm-w3" onclick="toggleCheck(event, 'comm-w3')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">Search: "Active Listening Skills – MedCircle" or "The Power of Listening – William Ury TED"</div>
+              <div class="activity-desc">Both are excellent. Pick one or watch both — they're under 15 min each.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎧</div>
+            <div class="activity-text">
+              <div class="activity-label">Podcast Episode</div>
+              <div class="activity-title">Dare to Lead Podcast – Brené Brown</div>
+              <div class="activity-desc">Find any episode on empathy or difficult conversations. Listen on a walk or drive.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Note-Taking Challenge</div>
+              <div class="activity-title">Listening audit: What am I actually doing when others talk?</div>
+              <div class="activity-desc">Be honest. Are you planning your response? Distracted? Write a before/after comparison by week's end.</div>
+            </div>
+          </div>
+        </div>
+        <div class="challenge-box">
+          <div class="trophy">🏆</div>
+          <div class="challenge-box-text">
+            <div class="challenge-box-label">Week 3 Challenge</div>
+            <div class="challenge-box-title">Have a 10-minute conversation where your only job is to listen, reflect back, and ask one open question. No advice giving.</div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Jot your thoughts, reflections, or key takeaways here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Week 4 -->
+    <div class="week-card" id="comm-w4">
+      <div class="week-header" onclick="toggleWeek('comm-w4')">
+        <div class="week-left">
+          <div class="week-num">W4</div>
+          <div>
+            <div class="week-title">Put It All Together</div>
+            <div class="week-subtitle">Written communication + your communication style</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-comm-w4" onclick="toggleCheck(event, 'comm-w4')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">"How to Write More Clearly" — Thomas Frank or Ali Abdaal</div>
+              <div class="activity-desc">Communication isn't just verbal — great writers are great thinkers.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Capstone Note</div>
+              <div class="activity-title">Write your personal "Communication Code"</div>
+              <div class="activity-desc">1 page. What kind of communicator are you now? What are your 3 core commitments going forward?</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎯</div>
+            <div class="activity-text">
+              <div class="activity-label">Final Practice</div>
+              <div class="activity-title">Re-record yourself speaking for 2 minutes (same topic as Week 1)</div>
+              <div class="activity-desc">Compare the two videos. Notice what has changed — even subtly.</div>
+            </div>
+          </div>
+        </div>
+        <div class="challenge-box">
+          <div class="trophy">🏆</div>
+          <div class="challenge-box-text">
+            <div class="challenge-box-label">Track 1 Capstone</div>
+            <div class="challenge-box-title">Lead or facilitate one real conversation — a meeting, a family discussion, a friend group decision — using everything you've learned.</div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Jot your thoughts, reflections, or key takeaways here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- READING TRACK -->
+  <div class="track-panel" id="tab-reading">
+    <div class="track-header">
+      <div class="track-icon gold">📖</div>
+      <div class="track-meta">
+        <h2>The Book — Self-Help by a Black Woman</h2>
+        <p>4 weeks · Read + reflect + apply</p>
+      </div>
+    </div>
+
+    <div class="book-callout">
+      <div class="book-cover">📗</div>
+      <div>
+        <div class="book-info-label">✦ Recommended Pick</div>
+        <div class="book-info-title">Set Boundaries, Find Peace</div>
+        <div class="book-info-author">by Nedra Glover Tawwab — licensed therapist & NYT bestselling author</div>
+        <div class="book-info-desc">A warm but clear-eyed guide to understanding why we struggle with boundaries and how to set them without guilt. Rooted in CBT, deeply practical, and incredibly relevant to someone navigating transitions and relationships. Alternatively: <strong>Year of Yes</strong> by Shonda Rhimes — a page-turner about saying yes to your fullest self.</div>
+      </div>
+    </div>
+
+    <div class="week-card" id="read-w1">
+      <div class="week-header" onclick="toggleWeek('read-w1')">
+        <div class="week-left">
+          <div class="week-num">W5</div>
+          <div>
+            <div class="week-title">Part 1 — What Are Boundaries, Really?</div>
+            <div class="week-subtitle">Chapters 1–4 · Understanding the "why"</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-read-w1" onclick="toggleCheck(event, 'read-w1')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📚</div>
+            <div class="activity-text">
+              <div class="activity-label">Reading Goal</div>
+              <div class="activity-title">Read Chapters 1–4 (approx. 30–45 min total, spread across the week)</div>
+              <div class="activity-desc">Read with a highlighter or sticky notes. Mark anything that hits close to home.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Supplement</div>
+              <div class="activity-title">Search: "Nedra Glover Tawwab interview" on YouTube</div>
+              <div class="activity-desc">Hearing the author speak deepens the reading. Several great podcast-style interviews are available.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Reflection Prompt</div>
+              <div class="activity-title">Where in your life do you consistently over-give or feel resentful afterward?</div>
+              <div class="activity-desc">Write without judgment. This is data, not shame.</div>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 My reading notes</span>
+        <textarea class="note-area" placeholder="Quotes, reactions, personal connections..."></textarea>
+      </div>
+    </div>
+
+    <div class="week-card" id="read-w2">
+      <div class="week-header" onclick="toggleWeek('read-w2')">
+        <div class="week-left">
+          <div class="week-num">W6</div>
+          <div>
+            <div class="week-title">Part 2 — Types of Boundaries</div>
+            <div class="week-subtitle">Chapters 5–8 · Getting specific</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-read-w2" onclick="toggleCheck(event, 'read-w2')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📚</div>
+            <div class="activity-text">
+              <div class="activity-label">Reading Goal</div>
+              <div class="activity-title">Chapters 5–8 — emotional, physical, time, and digital boundaries</div>
+              <div class="activity-desc">Note which category feels most out of balance in your life right now.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Reflection Prompt</div>
+              <div class="activity-title">Map your boundary landscape</div>
+              <div class="activity-desc">Draw a simple diagram or list: 3 relationships or situations where boundaries feel clear, and 3 where they feel foggy or missing.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎯</div>
+            <div class="activity-text">
+              <div class="activity-label">Apply It</div>
+              <div class="activity-title">Set one micro-boundary this week</div>
+              <div class="activity-desc">Say no to something small. Or say yes to protecting your time. Notice how it feels before and after.</div>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 My reading notes</span>
+        <textarea class="note-area" placeholder="Quotes, reactions, personal connections..."></textarea>
+      </div>
+    </div>
+
+    <div class="week-card" id="read-w3">
+      <div class="week-header" onclick="toggleWeek('read-w3')">
+        <div class="week-left">
+          <div class="week-num">W7</div>
+          <div>
+            <div class="week-title">Part 3 — The Hard Ones</div>
+            <div class="week-subtitle">Chapters 9–12 · Family, work, and guilt</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-read-w3" onclick="toggleCheck(event, 'read-w3')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📚</div>
+            <div class="activity-text">
+              <div class="activity-label">Reading Goal</div>
+              <div class="activity-title">Chapters 9–12 — family systems, workplace dynamics, and guilt as a tool</div>
+              <div class="activity-desc">This section tends to hit the hardest. Read slowly.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Reflection Prompt</div>
+              <div class="activity-title">Where does your guilt come from, and whose voice does it sound like?</div>
+              <div class="activity-desc">Write freely. No editing. Just let it come out.</div>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 My reading notes</span>
+        <textarea class="note-area" placeholder="Quotes, reactions, personal connections..."></textarea>
+      </div>
+    </div>
+
+    <div class="week-card" id="read-w4">
+      <div class="week-header" onclick="toggleWeek('read-w4')">
+        <div class="week-left">
+          <div class="week-num">W8</div>
+          <div>
+            <div class="week-title">Finish + Integrate</div>
+            <div class="week-subtitle">Final chapters · Your personal takeaway</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-read-w4" onclick="toggleCheck(event, 'read-w4')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📚</div>
+            <div class="activity-text">
+              <div class="activity-label">Reading Goal</div>
+              <div class="activity-title">Finish the book</div>
+              <div class="activity-desc">Read the final chapters and sit with the ending before moving on.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Capstone Note</div>
+              <div class="activity-title">Write a 1-page "Letter to Yourself" based on this book</div>
+              <div class="activity-desc">What did you learn? What are you willing to change? What permission did you finally give yourself?</div>
+            </div>
+          </div>
+        </div>
+        <div class="challenge-box">
+          <div class="trophy">🏆</div>
+          <div class="challenge-box-text">
+            <div class="challenge-box-label">Track 2 Capstone</div>
+            <div class="challenge-box-title">Share one thing from this book with someone in your life. A text, a conversation, a recommendation. Pass the wisdom forward.</div>
+          </div>
+        </div>
+        <span class="note-label">📝 My reading notes</span>
+        <textarea class="note-area" placeholder="Your letter, your closing thoughts, your 'aha' moment..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT MANAGEMENT TRACK -->
+  <div class="track-panel" id="tab-pm">
+    <div class="track-header">
+      <div class="track-icon forest">📋</div>
+      <div class="track-meta">
+        <h2>Project Management Foundations</h2>
+        <p>4 weeks · YouTube + free tools + a real project</p>
+      </div>
+    </div>
+
+    <div class="week-card" id="pm-w1">
+      <div class="week-header" onclick="toggleWeek('pm-w1')">
+        <div class="week-left">
+          <div class="week-num">W9</div>
+          <div>
+            <div class="week-title">PM 101 — How Projects Actually Work</div>
+            <div class="week-subtitle">Scope, timeline, stakeholders, and basics</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-pm-w1" onclick="toggleCheck(event, 'pm-w1')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">Search: "Project Management for Beginners – Google Project Management Certificate" (Coursera YouTube clips)</div>
+              <div class="activity-desc">Even 1–2 clips give you a solid foundation. Google's PM Certificate is free to audit on Coursera as well.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">"What is a Project Charter?" — any clear explainer video (under 10 min)</div>
+              <div class="activity-desc">A project charter is the most underrated tool. Understanding it unlocks everything.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Note-Taking Challenge</div>
+              <div class="activity-title">Define your "Personal Project" for this track</div>
+              <div class="activity-desc">Choose something real: planning a trip, launching your notary business, preparing for fall semester. This becomes your live case study.</div>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="What is your personal project? What does success look like?"></textarea>
+      </div>
+    </div>
+
+    <div class="week-card" id="pm-w2">
+      <div class="week-header" onclick="toggleWeek('pm-w2')">
+        <div class="week-left">
+          <div class="week-num">W10</div>
+          <div>
+            <div class="week-title">Planning — Timelines, Tasks & Tools</div>
+            <div class="week-subtitle">Gantt charts, kanban, and free PM tools</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-pm-w2" onclick="toggleCheck(event, 'pm-w2')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">"How to Use Notion for Project Management" or "Trello Tutorial for Beginners"</div>
+              <div class="activity-desc">Pick one tool (Notion, Trello, or Asana — all free) and set it up for your personal project.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">💻</div>
+            <div class="activity-text">
+              <div class="activity-label">Hands-On</div>
+              <div class="activity-title">Build your project board</div>
+              <div class="activity-desc">Create a kanban or task list for your personal project. Add deadlines, milestones, and categories.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Reflection</div>
+              <div class="activity-title">What does a "realistic" timeline look like for your project?</div>
+              <div class="activity-desc">Map it out. Build in buffer time. Practice scope awareness — not everything needs to happen at once.</div>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Which tool did you choose? What did your board look like?"></textarea>
+      </div>
+    </div>
+
+    <div class="week-card" id="pm-w3">
+      <div class="week-header" onclick="toggleWeek('pm-w3')">
+        <div class="week-left">
+          <div class="week-num">W11</div>
+          <div>
+            <div class="week-title">Execution & Communication in Projects</div>
+            <div class="week-subtitle">Stakeholders, updates, and handling roadblocks</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-pm-w3" onclick="toggleCheck(event, 'pm-w3')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">"Managing Stakeholders in Project Management" — any solid explainer</div>
+              <div class="activity-desc">Think about how your communication skills (Track 1) connect directly here.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎯</div>
+            <div class="activity-text">
+              <div class="activity-label">Apply It</div>
+              <div class="activity-title">Write a project status update — even if it's just for yourself</div>
+              <div class="activity-desc">"Here's where I am. Here's what's on track. Here's what I need to solve." Practice the format.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Reflection</div>
+              <div class="activity-title">Where has your personal project hit a roadblock this week?</div>
+              <div class="activity-desc">Write the problem clearly, then brainstorm 3 possible paths forward. This is real PM work.</div>
+            </div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Status update, roadblocks, decisions made..."></textarea>
+      </div>
+    </div>
+
+    <div class="week-card" id="pm-w4">
+      <div class="week-header" onclick="toggleWeek('pm-w4')">
+        <div class="week-left">
+          <div class="week-num">W12</div>
+          <div>
+            <div class="week-title">Close Out + Next Steps</div>
+            <div class="week-subtitle">Lessons learned, retrospective, and what's next</div>
+          </div>
+        </div>
+        <div class="week-right">
+          <div class="week-check" id="check-pm-w4" onclick="toggleCheck(event, 'pm-w4')"></div>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📺</div>
+            <div class="activity-text">
+              <div class="activity-label">YouTube Watch</div>
+              <div class="activity-title">"Project Retrospective — How to Run One" or "Lessons Learned in PM"</div>
+              <div class="activity-desc">A retrospective is one of the most valuable project habits you can build.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">📓</div>
+            <div class="activity-text">
+              <div class="activity-label">Capstone Note</div>
+              <div class="activity-title">Run a 3-question retrospective on your personal project</div>
+              <div class="activity-desc">1) What went well? 2) What didn't? 3) What would I do differently? Be generous and honest with yourself.</div>
+            </div>
+          </div>
+          <div class="activity">
+            <div class="activity-icon">🎓</div>
+            <div class="activity-text">
+              <div class="activity-label">Bonus Resource</div>
+              <div class="activity-title">Consider: Google Project Management Certificate (Coursera, free to audit)</div>
+              <div class="activity-desc">If you loved this, the full certificate is a credentialed next step — relevant for healthcare admin, operations, and beyond.</div>
+            </div>
+          </div>
+        </div>
+        <div class="challenge-box">
+          <div class="trophy">🏆</div>
+          <div class="challenge-box-text">
+            <div class="challenge-box-label">Final Capstone</div>
+            <div class="challenge-box-title">Present your personal project to one person — a friend, partner, anyone. Walk them through what you built, what you learned, what's next. That's a PM close-out.</div>
+          </div>
+        </div>
+        <span class="note-label">📝 My notes for this week</span>
+        <textarea class="note-area" placeholder="Retrospective answers, what you'd pursue next..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRAVEL LEARNING TAB -->
+  <div class="track-panel" id="tab-travel">
+    <div class="track-header">
+      <div class="track-icon terracotta">✈️</div>
+      <div class="track-meta">
+        <h2>Travel as Curriculum</h2>
+        <p>Non-conventional learning — woven throughout the 12 weeks</p>
+      </div>
+    </div>
+    <p style="font-size:0.87rem;color:var(--sage);margin-bottom:1.5rem;line-height:1.6;">These aren't vacations — they're field trips for your mind. Each connects to your three learning tracks.</p>
+
+    <div class="travel-grid">
+      <div class="travel-card">
+        <div class="travel-card-emoji">🏛️</div>
+        <h3>Communication: Attend a Live Talk</h3>
+        <p>Find a TEDx event, local speaker series, or Toastmasters guest night in your area. Watch skilled communicators in person — body language, pacing, and energy are things YouTube can't fully teach.</p>
+        <span class="link-tag">🔗 Search: TEDx [your city] · eventbrite.com</span>
+      </div>
+      <div class="travel-card">
+        <div class="travel-card-emoji">☕</div>
+        <h3>Book Club Field Trip</h3>
+        <p>Visit an independent Black-owned bookstore if one is near you. Browse their staff picks. Buy your book there. There's something about the act of physically choosing a book that sets the tone for reading it intentionally.</p>
+        <span class="link-tag">🔗 Search: Black-owned bookstores near me</span>
+      </div>
+      <div class="travel-card">
+        <div class="travel-card-emoji">🌿</div>
+        <h3>Nature + Note-Taking Retreat</h3>
+        <p>Take yourself on a solo half-day "learning retreat." A park, a botanical garden, a waterfront. Bring your journal. No music, no podcast — just you and whatever surfaces. Some of the best reflection happens in motion.</p>
+        <span class="link-tag">🗓 Plan for: end of Week 4 or Week 8</span>
+      </div>
+      <div class="travel-card">
+        <div class="travel-card-emoji">🏙️</div>
+        <h3>PM Field Study: Study a Space</h3>
+        <p>Visit a well-run business, museum, or organized event near you. Observe how it's structured — the flow, the signage, the staff coordination. Write down what you notice as if you're the PM who designed it.</p>
+        <span class="link-tag">🗓 Plan for: Week 10 or 11</span>
+      </div>
+      <div class="travel-card">
+        <div class="travel-card-emoji">🎤</div>
+        <h3>Community Event — Listen + Connect</h3>
+        <p>Attend a panel, a workshop, or a community meeting on a topic that interests you. The goal: practice your listening and conversation skills with real strangers in a low-stakes setting.</p>
+        <span class="link-tag">🔗 Search: eventbrite.com · meetup.com</span>
+      </div>
+      <div class="travel-card">
+        <div class="travel-card-emoji">🎓</div>
+        <h3>Campus Visit — Radiology School</h3>
+        <p>If you haven't already, visit the campus or attend an open house for your radiology program this fall. Connect your learning now with your learning later. This 12-week curriculum is a bridge — make it feel real.</p>
+        <span class="link-tag">🗓 Plan for: sometime in the 12 weeks</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS TAB -->
+  <div class="track-panel" id="tab-achievements">
+    <div class="track-header">
+      <div class="track-icon gold">🏆</div>
+      <div class="track-meta">
+        <h2>Your Achievements</h2>
+        <p>Unlock these as you complete your curriculum</p>
+      </div>
+    </div>
+    <p style="font-size:0.87rem;color:var(--sage);line-height:1.6;">Complete weeks and tracks to unlock badges. Check off weeks using the ✓ buttons on each card.</p>
+
+    <div class="achievements-grid" id="achievements-grid">
+      <div class="achievement" id="ach-voice" title="Record yourself speaking in Week 1">
+        <div class="achievement-icon">🎙️</div>
+        <div class="achievement-name">Voice Activated</div>
+        <div class="achievement-desc">Completed Week 1 of Communication</div>
+      </div>
+      <div class="achievement" id="ach-assertive" title="Week 2 Communication">
+        <div class="achievement-icon">💬</div>
+        <div class="achievement-name">Speak Your Truth</div>
+        <div class="achievement-desc">Completed Week 2 of Communication</div>
+      </div>
+      <div class="achievement" id="ach-listen" title="Week 3 Communication">
+        <div class="achievement-icon">👂</div>
+        <div class="achievement-name">Deep Listener</div>
+        <div class="achievement-desc">Completed Week 3 of Communication</div>
+      </div>
+      <div class="achievement" id="ach-comm-done" title="All 4 communication weeks done">
+        <div class="achievement-icon">🗣️</div>
+        <div class="achievement-name">Communicator</div>
+        <div class="achievement-desc">Finished the full Communication Track</div>
+      </div>
+      <div class="achievement" id="ach-reader" title="Finished the book">
+        <div class="achievement-icon">📖</div>
+        <div class="achievement-name">The Reader</div>
+        <div class="achievement-desc">Completed the full Book Track</div>
+      </div>
+      <div class="achievement" id="ach-pm" title="All PM weeks done">
+        <div class="achievement-icon">📋</div>
+        <div class="achievement-name">Project Lead</div>
+        <div class="achievement-desc">Finished the Project Management Track</div>
+      </div>
+      <div class="achievement" id="ach-grad" title="All 12 weeks done">
+        <div class="achievement-icon">🎓</div>
+        <div class="achievement-name">Graduate</div>
+        <div class="achievement-desc">Completed all 12 weeks — you did it.</div>
+      </div>
+      <div class="achievement" id="ach-travel" title="Bonus">
+        <div class="achievement-icon">✈️</div>
+        <div class="achievement-name">Field Scholar</div>
+        <div class="achievement-desc">Completed a travel learning experience</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const checked = {};
+
+  function switchTab(tab) {
+    document.querySelectorAll('.track-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleWeek(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  function toggleCheck(e, id) {
+    e.stopPropagation();
+    const checkEl = document.getElementById('check-' + id);
+    checked[id] = !checked[id];
+    checkEl.classList.toggle('done', checked[id]);
+    updateProgress();
+    updateAchievements();
+  }
+
+  function updateProgress() {
+    const total = 12;
+    const done = Object.values(checked).filter(Boolean).length;
+    const pct = Math.round((done / total) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = done + ' of ' + total + ' weeks complete';
+  }
+
+  function updateAchievements() {
+    const unlock = (id, condition) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('unlocked', condition);
+    };
+
+    unlock('ach-voice', !!checked['comm-w1']);
+    unlock('ach-assertive', !!checked['comm-w2']);
+    unlock('ach-listen', !!checked['comm-w3']);
+    unlock('ach-comm-done', ['comm-w1','comm-w2','comm-w3','comm-w4'].every(k => checked[k]));
+    unlock('ach-reader', ['read-w1','read-w2','read-w3','read-w4'].every(k => checked[k]));
+    unlock('ach-pm', ['pm-w1','pm-w2','pm-w3','pm-w4'].every(k => checked[k]));
+
+    const allKeys = ['comm-w1','comm-w2','comm-w3','comm-w4','read-w1','read-w2','read-w3','read-w4','pm-w1','pm-w2','pm-w3','pm-w4'];
+    unlock('ach-grad', allKeys.every(k => checked[k]));
+  }
+</script>
+</body>
+</html>
